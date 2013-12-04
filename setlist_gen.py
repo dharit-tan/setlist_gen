@@ -137,36 +137,55 @@ while running:
 	# 	print data
 	# 	asdf = True
 
+	prevline = data
+	data += prevline
+
+	r = re.compile('ARTIST=.*TITLE=\w{25,}')
+	if r.search(data):
+		arr = data.split("ARTIST=")
+		arr = arr[1].split("TITLE=")
+		artist = arr[0]
+		artist = artist[:-4]
+		arr = arr[1].split("vorbis")
+		title = arr[0]
+		title = title[:-2]
+		metadata_updated = True
+		# print "metadata received"
+		# print artist.strip("\n"), "-", title.strip("\n")
+
+
+
+""" UNCOMMENT BELOW FOR VERSION 1 (100% WORKING) """	
 	# we've indicated that something went wrong and we need to use the prevline
-	if databool:
-		data = prevline + data  # use the previous line as well
+	# if databool:
+	# 	data = prevline + data  # use the previous line as well
 
 	# if only ARTIST= is present and TITLE= is split up
-	if "ARTIST=" in data and not "TITLE=" in data:
-		databool = True  # save it for the next round
+	# if "ARTIST=" in data and not "TITLE=" in data:
+	# 	databool = True  # save it for the next round
 
-	# if only TITLE= is present and ARTIST= is split up
-	if "TITLE=" in data and not "ARTIST=" in data:
-		data = prevline + data
+	# # if only TITLE= is present and ARTIST= is split up
+	# if "TITLE=" in data and not "ARTIST=" in data:
+	# 	data = prevline + data
 
-	# if they're both present
-	if "ARTIST=" in data and "TITLE=" in data:
-		if len(data.split("TITLE=")[1]) < 25:
-			databool = True
-		else:
-			arr = data.split("ARTIST=")
-			arr = arr[1].split("TITLE=")
-			artist = arr[0]
-			artist = artist[:-4]
-			arr = arr[1].split("vorbis")
-			title = arr[0]
-			title = title[:-2]
-			metadata_updated = True
-			# print "metadata received"
-			# print artist.strip("\n"), "-", title.strip("\n")
-			databool = False
+	# # if they're both present
+	# if "ARTIST=" in data and "TITLE=" in data:
+	# 	if len(data.split("TITLE=")[1]) < 25:
+	# 		databool = True
+	# 	else:
+	# 		arr = data.split("ARTIST=")
+	# 		arr = arr[1].split("TITLE=")
+	# 		artist = arr[0]
+	# 		artist = artist[:-4]
+	# 		arr = arr[1].split("vorbis")
+	# 		title = arr[0]
+	# 		title = title[:-2]
+	# 		metadata_updated = True
+	# 		# print "metadata received"
+	# 		# print artist.strip("\n"), "-", title.strip("\n")
+	# 		databool = False
 
-	prevline = data
+	# prevline = data
 
 	# end main loop
 
