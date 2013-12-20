@@ -10,6 +10,7 @@ from pygame.locals import *
 import socket
 import signal
 import datetime
+import re
 
 HOST = 'localhost'
 PORT = 8080
@@ -73,7 +74,7 @@ def handle_timestamp(timestamp):
 def get_device():
 	while True:
 		try:
-			device_id = input('Enter device number: ')
+			device_id = input('Enter device number (starts at 1): ')
 			device = pymidi.Input(device_id)
 		except NameError:
 			print 'NameError, try again... '

@@ -137,10 +137,13 @@ while running:
 	# 	print data
 	# 	asdf = True
 
-	prevline = data
-	data += prevline
+	firstTime = True
+	if not firstTime:
+		data = prevline + data
 
-	r = re.compile('ARTIST=.*TITLE=\w{25,}')
+
+	r = re.compile('ARTIST=.*TITLE=.{25,}')
+
 	if r.search(data):
 		arr = data.split("ARTIST=")
 		arr = arr[1].split("TITLE=")
@@ -153,14 +156,17 @@ while running:
 		# print "metadata received"
 		# print artist.strip("\n"), "-", title.strip("\n")
 
+	prevline = data
+	if firstTime:
+		firstTime = False
 
 
-""" UNCOMMENT BELOW FOR VERSION 1 (100% WORKING) """	
+	""" UNCOMMENT BELOW FOR VERSION 1 (100% WORKING) """	
 	# we've indicated that something went wrong and we need to use the prevline
 	# if databool:
 	# 	data = prevline + data  # use the previous line as well
 
-	# if only ARTIST= is present and TITLE= is split up
+	# # if only ARTIST= is present and TITLE= is split up
 	# if "ARTIST=" in data and not "TITLE=" in data:
 	# 	databool = True  # save it for the next round
 
